@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -37,20 +36,20 @@ function Header() {
   ];
 
   return (
-    <header className="py-3 shadow bg-gray-900">
+    <header className="py-3 shadow bg-gray-900 w-full">
       <Container>
         <nav className="flex">
           <div className="mr-4 flex gap-2">
             <img
               src="https://img.freepik.com/free-vector/hand-drawn-indian-bride-illustration_23-2149418510.jpg?w=1380&t=st=1716061343~exp=1716061943~hmac=69910f95563f3b176ebe6f56057fa981c182ed43b8b12c9140787c0019fd5045"
-              class="h-8"
+              className="h-8"
               alt="Flowbite Logo"
             />
             <Link to="/">
               <Logo width="70px" />
             </Link>
           </div>
-          <ul className="flex ml-auto">
+          <ul className="flex ml-auto gap-4">
             {navItems.map((item) =>
               item.active ? (
                 <li key={item.name}>

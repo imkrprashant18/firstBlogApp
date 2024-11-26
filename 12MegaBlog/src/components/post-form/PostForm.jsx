@@ -4,6 +4,7 @@ import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -24,8 +25,10 @@ export default function PostForm({ post }) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
         : null;
+      console.log(file);
 
       if (file) {
+        // eslint-disable-next-line react/prop-types
         appwriteService.deleteFile(post.featuredImage);
       }
 
@@ -37,6 +40,7 @@ export default function PostForm({ post }) {
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
+      toast.success("Post Fetched Successfully!!!");
     } else {
       const file = await appwriteService.uploadFile(data.image[0]);
 
