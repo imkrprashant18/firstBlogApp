@@ -2,9 +2,13 @@ import { Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { getInitials } from "../../utils/utils";
+import React from "react";
 function Header() {
+  const [showLogout, setShowLogout] = React.useState(false);
   const authStatus = useSelector((state) => state.auth.status);
+  const userData = useSelector((state) => state.auth.userData);
+
   const navigate = useNavigate();
 
   const navItems = [
@@ -62,10 +66,24 @@ function Header() {
                 </li>
               ) : null
             )}
-            {authStatus && (
-              <li>
-                <LogoutBtn />
-              </li>
+
+            {userData && (
+              <div
+                className="h-12 w-12 rounded-full bg-blue-700 flex justify-center items-center cursor-pointer relative"
+                onClick={() => setShowLogout((prev) => !prev)} // Toggle logout button visibility
+              >
+                <li className="text-gray-100 text-lg">
+                  {getInitials(userData?.name)}
+                </li>
+                {showLogout && (
+                  <div
+                    className="absolute top-14 right-0 bg-white shadow-lg rounded-lg p-2"
+                    onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                  >
+                    <LogoutBtn />
+                  </div>
+                )}
+              </div>
             )}
           </ul>
         </nav>
